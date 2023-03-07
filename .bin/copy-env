@@ -19,11 +19,13 @@ const copyEnv = async () => {
   const samplefile = path.resolve(__dirname, '../.env.sample');
 
   if (!fs.existsSync(envfile)) {
-    console.warn('.env file not found - exiting');
     return;
   }
 
-  const oldContent = await fs.readFile(samplefile, 'utf-8');
+  let oldContent = '';
+  if (fs.existsSync(samplefile)) {
+    oldContent = await fs.readFile(samplefile, 'utf-8');
+  }
   const content = await fs.readFile(envfile, 'utf-8');
   const lines = content.split('\n');
   const newLines = lines
@@ -41,10 +43,15 @@ const copyEnv = async () => {
       return `${key.trim()}=${newValue.trim()}`;
     });
   const newContent = newLines.join('\n');
-  if (oldContent !== newContent) {
+  if (!newContent.length) {
+    console.log('removing .env.sample');
+    await fs.remove(samplefile);
+  } else {
     await fs.writeFile(samplefile, newContent);
+  }
+  if (oldContent !== newContent) {
     await exec('git add .env.sample');
-    console.log('updated .env.sample');
+    console.log('staged .env.sample');
   }
 };
 
