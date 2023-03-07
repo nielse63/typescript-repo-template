@@ -1,6 +1,6 @@
 {
   "name": "{{name}}",
-  "version": "1.0.0",
+  "version": "{{version}}",
   "description": "{{description}}",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -50,7 +50,6 @@
     "eslint-plugin-jest": "^27.0.1",
     "eslint-plugin-jest-extended": "^2.0.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "fs-extra": "^11.1.0",
     "husky": "^8.0.1",
     "jest": "^29.5.0",
     "jest-extended": "^3.2.4",

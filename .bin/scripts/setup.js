@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const pwd = path.resolve(__dirname, '..');
+const pwd = path.resolve(__dirname, '../..');
 const dirname = path.basename(pwd);
 const templatesDir = path.join(__dirname, 'templates');
 const files = [
@@ -30,22 +30,18 @@ const prompt = async () => {
     {
       name: 'user',
       message: 'GitHub User',
-      default: 'nielse63',
     },
     {
       name: 'author',
       message: 'Author',
-      default: 'Erik Nielsen <erik@312development.com>',
     },
     {
       name: 'description',
       message: 'Description',
-      default: 'this is a test',
     },
     {
       name: 'keywords',
       message: 'Keywords',
-      default: 'one, two, three',
       filter: (input) => {
         return input.split(',').map((value) => value.trim());
       },

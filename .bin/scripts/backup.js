@@ -1,14 +1,12 @@
 #!/usr/bin/env node
 import fs from 'fs-extra';
-import inquirer from 'inquirer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const pwd = path.resolve(__dirname, '..');
-const dirname = path.basename(pwd);
+const pwd = path.resolve(__dirname, '../..');
 const templatesDir = path.join(__dirname, 'templates');
 const files = [
   'package.json',
@@ -47,13 +45,21 @@ const createTemplateFromJsonFile = async (file, answers) => {
     const stringValue = Array.isArray(value) ? value.join(', ') : value;
     newContent = newContent.replace(new RegExp(stringValue, 'g'), `{{${key}}}`);
   });
-  console.log({ file, newContent });
+  if (newContent.includes('"keywords"')) {
+    const json = JSON.parse(newContent);
+    json.keywords = '{{keywords}}';
+    newContent = JSON.stringify(json, null, '  ').replace(
+      /"{{keywords}}"/g,
+      '{{keywords}}'
+    );
+  }
+  await fs.writeFile(templates[path.basename(file)], newContent);
 };
 
 const copySourceToTemplate = async (answers) => {
   const promises = sources.map(async (file) => {
     if (file.endsWith('.json')) {
-      console.log('json file');
+      return createTemplateFromJsonFile(file, answers);
     } else {
       return createTemplateFromStringFile(file, answers);
     }
@@ -72,12 +78,6 @@ const backup = async () => {
     version: pkg.version,
   };
   await copySourceToTemplate(answers);
-  // const answers = await prompt();
-  // const promises = templates.map((file) => {
-  //   return findAndReplaceInFile(file, answers);
-  // });
-  // await Promise.all(promises);
-  // console.log(replaceHash);
 };
 
 backup().catch(console.error);

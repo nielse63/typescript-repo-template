@@ -5,7 +5,7 @@ repository:
   name: typescript-repo-template
   description: A GitHub repo template for TypeScript projects
   homepage: https://github.com/nielse63/typescript-repo-template
-  topics: typescript, repo-temmplate, template
+  topics: typescript, repo-template, template
   private: false
   has_issues: true
   has_projects: false
