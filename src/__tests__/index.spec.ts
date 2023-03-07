@@ -1,7 +1,7 @@
 import main from '..';
 
-describe('main', ()=> {
+describe('main', () => {
   it('should be defined', () => {
-    expect(main).toBeDefined()
-  })
-})
+    expect(main).toBeDefined();
+  });
+});

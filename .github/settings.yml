@@ -13,7 +13,7 @@ repository:
   homepage: https://github.com/nielse63/typescript-repo-template
 
   # A comma-separated list of topics to set on the repository
-  topics: typescript, trading, trading-bot, algotrading, alpaca, alpaca-trading-api
+  topics: typescript, repo-temmplate, template
 
   # Either `true` to make the repository private, or `false` to make it public.
   private: false
