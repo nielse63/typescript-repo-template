@@ -8,12 +8,13 @@ function trash {
     now=$(date +%s)
 
     if ! [ -e "$src" ]; then
+      echo "$src not found"
       return
     fi
 
     # check for trash, just in case
     if [ -d  "$HOME/.Trash" ]; then
-      mv "$src" "$HOME/.Trash/${src_basename}_${now}"
+      mv "$src" "$HOME/.Trash/${src_basename}_${now}_${RANDOM}"
     else
       rm -rf "$src"
     fi
@@ -36,6 +37,14 @@ fi
 node setup.js
 
 # delete .bin/scripts and setup dir
-cd "$root_dir"
-trash .bin/scripts .bin/setup
+cd "$root"
+trash .bin/scripts
+trash .bin/setup
 npm pkg delete scripts.setup
+
+# initialize git
+# trash .git
+# git init
+
+# install depenendenies
+npm ci

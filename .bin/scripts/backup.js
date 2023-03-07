@@ -2,6 +2,18 @@
 import fs from 'fs-extra';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cp from 'child_process';
+
+const exec = (cmd) => {
+  return new Promise((resolve, reject) => {
+    cp.exec(cmd, (error, stdout, stderr) => {
+      if (error) {
+        return reject(new Error(stderr));
+      }
+      resolve(stdout);
+    });
+  });
+};
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -67,6 +79,11 @@ const copySourceToTemplate = async (answers) => {
   await Promise.all(promises);
 };
 
+const stageTemplates = async () => {
+  const fileString = Object.values(templates).join(' ');
+  await exec(`git add ${fileString}`);
+};
+
 const backup = async () => {
   const pkg = await getPackageJson();
   const answers = {
@@ -78,6 +95,7 @@ const backup = async () => {
     version: pkg.version,
   };
   await copySourceToTemplate(answers);
+  await stageTemplates();
 };
 
 backup().catch(console.error);

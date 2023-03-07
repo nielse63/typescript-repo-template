@@ -11,6 +11,7 @@
     "access": "public"
   },
   "scripts": {
+    "setup": ".bin/setup",
     "test": "jest",
     "prepare": "husky install",
     "start": "node dist/index.js",
