@@ -12,7 +12,7 @@
   </div>
 
   <a href="https://github.com/nielse63/typescript-repo-template">
-    <img src="./docs/social.jpeg" alt="nielse63/typescript-repo-template" width="640" />
+    <img src="./docs/typescript-repo-template.png" alt="nielse63/typescript-repo-template" width="640" width="320" />
   </a>
 </div>
 
@@ -76,10 +76,9 @@ npm run setup
 ## Roadmap
 
 - [x] Add Changelog
-- [ ] Add default values for setup script
+- [x] Add default values for setup script
 - [ ] Move `.bin/scripts` to it's own package
 - [ ] Utilize plop
-- [ ] Handle git initilization during setup more gracefully
 - [ ] Write tests for setup and backup scripts
 
 See the [open issues](https://github.com/nielse63/typescript-repo-template/issues) for a full list of proposed features (and known issues).

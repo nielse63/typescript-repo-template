@@ -1,57 +1,34 @@
 #!/usr/bin/env node
-import fs from 'fs-extra';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import cp from 'child_process';
+const fs = require('fs');
+const fsp = require('fs/promises');
+const path = require('path');
+const pkg = require('../../package.json');
+const { getAuthorDetails, pwd, templatesDir, files } = require('./helpers');
 
-const exec = (cmd) => {
-  return new Promise((resolve, reject) => {
-    cp.exec(cmd, (error, stdout, stderr) => {
-      if (error) {
-        return reject(new Error(stderr));
-      }
-      resolve(stdout);
-    });
-  });
-};
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const pwd = path.resolve(__dirname, '../..');
-const templatesDir = path.join(__dirname, 'templates');
-const files = [
-  'package.json',
-  'package-lock.json',
-  'README.md',
-  '.github/settings.yml',
-];
-const templates = [...files].reduce((output, file) => {
+const templatesObject = [...files].reduce((output, file) => {
   const dest = path.join(templatesDir, `${file}.tpl`);
   return {
     ...output,
     [path.basename(file)]: dest,
   };
 }, {});
-const sources = [...files].map((file) => path.join(pwd, file));
-
-const getPackageJson = async () => {
-  const content = await fs.readJSON(path.join(pwd, 'package.json'));
-  return content;
-};
+const sources = [...files]
+  .map((file) => path.join(pwd, file))
+  .filter((file) => fs.existsSync(file));
 
 const createTemplateFromStringFile = async (file, answers) => {
-  const content = await fs.readFile(file, 'utf-8');
+  const content = await fsp.readFile(file, 'utf-8');
   let newContent = content;
   Object.entries(answers).forEach(([key, value]) => {
     const stringValue = Array.isArray(value) ? value.join(', ') : value;
     newContent = newContent.replace(new RegExp(stringValue, 'g'), `{{${key}}}`);
   });
-  await fs.writeFile(templates[path.basename(file)], newContent);
+  const basename = path.basename(file);
+  await fsp.writeFile(templatesObject[basename], newContent);
 };
 
 const createTemplateFromJsonFile = async (file, answers) => {
-  const content = await fs.readFile(file, 'utf-8');
+  const content = await fsp.readFile(file, 'utf-8');
   let newContent = content;
   Object.entries(answers).forEach(([key, value]) => {
     const stringValue = Array.isArray(value) ? value.join(', ') : value;
@@ -65,11 +42,13 @@ const createTemplateFromJsonFile = async (file, answers) => {
       '{{keywords}}'
     );
   }
-  await fs.writeFile(templates[path.basename(file)], newContent);
+  const basename = path.basename(file);
+  await fsp.writeFile(templatesObject[basename], newContent);
 };
 
 const copySourceToTemplate = async (answers) => {
   const promises = sources.map(async (file) => {
+    console.log(`writing ${path.basename(file)}`);
     if (file.endsWith('.json')) {
       return createTemplateFromJsonFile(file, answers);
     } else {
@@ -79,13 +58,8 @@ const copySourceToTemplate = async (answers) => {
   await Promise.all(promises);
 };
 
-const stageTemplates = async () => {
-  const fileString = Object.values(templates).join(' ');
-  await exec(`git add ${fileString}`);
-};
-
 const backup = async () => {
-  const pkg = await getPackageJson();
+  const { name: authorName, email: authorEmail } = getAuthorDetails(pkg.author);
   const answers = {
     name: pkg.name,
     user: 'nielse63',
@@ -93,9 +67,11 @@ const backup = async () => {
     description: pkg.description,
     keywords: pkg.keywords,
     version: pkg.version,
+    year: '2023',
+    authorEmail,
+    authorName,
   };
   await copySourceToTemplate(answers);
-  await stageTemplates();
 };
 
 backup().catch(console.error);

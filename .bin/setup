@@ -20,31 +20,13 @@ function trash {
     fi
 }
 
-# vars
-root_dir=$(dirname $(dirname "$0"))
-cd "$root_dir"
-root=$(pwd)
-bin_dir="$root/.bin"
-scripts_dir="$bin_dir/scripts"
-
-# install dependencies
-cd "$scripts_dir"
-if ! [ -d "$scripts_dir/node_modules" ]; then
-  npm ci
-fi
-
 # run setup script
-node setup.js
+.bin/scripts/setup
 
 # delete .bin/scripts and setup dir
-cd "$root"
 trash .bin/scripts
 trash .bin/setup
 npm pkg delete scripts.setup
-
-# initialize git
-# trash .git
-# git init
 
 # install depenendenies
 npm ci
