@@ -1,0 +1,138 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>typescript-repo-template</title><meta name="description" content="Documentation for typescript-repo-template"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
+<div class="field">
+<div id="tsd-toolbar-links"></div></div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">typescript-repo-template</a></div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div></div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<h2>typescript-repo-template</h2></div>
+<div class="tsd-panel tsd-typography">
+<a href="#typescript-repo-template" id="typescript-repo-template" style="color: inherit; text-decoration: none;">
+  <h1>typescript-repo-template</h1>
+</a>
+<blockquote>
+<p>A GitHub repo template for TypeScript projects</p>
+</blockquote>
+<div align="center">
+  <div>
+    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/nielse63/typescript-repo-template/pr-check.yml?style=for-the-badge">
+    <img alt="Codecov" src="https://img.shields.io/codecov/c/github/nielse63/typescript-repo-template?style=for-the-badge">
+    <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/nielse63/typescript-repo-template?style=for-the-badge">
+    <img alt="npm" src="https://img.shields.io/npm/v/@nielse63/typescript-repo-template?style=for-the-badge">
+    <img alt="GitHub" src="https://img.shields.io/github/license/nielse63/typescript-repo-template?style=for-the-badge">
+  </div>
+
+  <a href="https://github.com/nielse63/typescript-repo-template">
+    <img src="docs/social.jpeg" alt="nielse63/typescript-repo-template" width="640" />
+  </a>
+</div>
+
+
+<a href="#features" id="features" style="color: inherit; text-decoration: none;">
+  <h2>Features</h2>
+</a>
+<ul>
+<li>TypeScript - Pre-configured TypeScript configuration integrated with eslint and jest</li>
+<li>GitHub Actions - PR checks, dependabot, automerge, and repo settings pre-configured</li>
+<li>Git Hooks - Format staged files using lint-staged and husky</li>
+<li>Pre-Configured Formatters - eslint, prettier, airbnb-typescript-config, and .editorconfig baked in</li>
+<li>Unit Tests - Run TypeScript unit tests with jest</li>
+<li>Interactive Setup Script - takes the hassle out of initializing your repository</li>
+</ul>
+
+<a href="#prerequisites" id="prerequisites" style="color: inherit; text-decoration: none;">
+  <h3>Prerequisites</h3>
+</a>
+<p>For the best results, make sure you have the correct version of node installed:</p>
+<pre><code class="language-bash"><span class="hl-0">nvm </span><span class="hl-1">install</span><span class="hl-0"> </span><span class="hl-1">v16.</span><span class="hl-2">19.0</span>
+</code></pre>
+
+<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+  <h3>Installation</h3>
+</a>
+
+<a href="#using-github-cli" id="using-github-cli" style="color: inherit; text-decoration: none;">
+  <h4>Using GitHub CLI</h4>
+</a>
+<pre><code class="language-bash"><span class="hl-3"># create the repo and clone it</span><br/><span class="hl-0">gh </span><span class="hl-1">repo</span><span class="hl-0"> </span><span class="hl-1">create</span><span class="hl-0"> </span><span class="hl-1">my-awesome-project</span><span class="hl-0"> </span><span class="hl-4">\</span><br/><span class="hl-0">  </span><span class="hl-1">--template</span><span class="hl-0"> </span><span class="hl-1">nielse63/typescript-repo-template</span><span class="hl-0"> </span><span class="hl-4">\</span><br/><span class="hl-0">  </span><span class="hl-1">--clone</span><br/><span class="hl-5">cd</span><span class="hl-0"> </span><span class="hl-1">my-awesome-project</span><br/><br/><span class="hl-3"># run the setup script</span><br/><span class="hl-0">npm </span><span class="hl-1">run</span><span class="hl-0"> </span><span class="hl-1">setup</span>
+</code></pre>
+
+<a href="#manually-via-git" id="manually-via-git" style="color: inherit; text-decoration: none;">
+  <h4>Manually via git</h4>
+</a>
+<pre><code class="language-bash"><span class="hl-3"># clone the repo into a custom directory</span><br/><span class="hl-0">git </span><span class="hl-1">clone</span><span class="hl-0"> </span><span class="hl-1">https://github.com/nielse63/typescript-repo-template</span><span class="hl-0"> </span><span class="hl-1">my-awesome-project</span><br/><span class="hl-5">cd</span><span class="hl-0"> </span><span class="hl-1">my-awesome-project</span><br/><br/><span class="hl-3"># switch to ideal node version</span><br/><span class="hl-0">nvm </span><span class="hl-1">use</span><br/><br/><span class="hl-3"># run the setup script</span><br/><span class="hl-0">npm </span><span class="hl-1">run</span><span class="hl-0"> </span><span class="hl-1">setup</span>
+</code></pre>
+<!-- ## Usage
+
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+
+_For more examples, please refer to the [Documentation](https://example.com)_ -->
+
+
+<a href="#roadmap" id="roadmap" style="color: inherit; text-decoration: none;">
+  <h2>Roadmap</h2>
+</a>
+<ul>
+<li><input disabled="" type="checkbox"> Add Changelog</li>
+<li><input disabled="" type="checkbox"> Add default values for setup script</li>
+<li><input disabled="" type="checkbox"> Move <code>.bin/scripts</code> to it&#39;s own package</li>
+<li><input disabled="" type="checkbox"> Utilize plop</li>
+<li><input disabled="" type="checkbox"> Handle git initilization during setup more gracefully</li>
+<li><input disabled="" type="checkbox"> Write tests for setup and backup scripts</li>
+</ul>
+<p>See the <a href="https://github.com/nielse63/typescript-repo-template/issues">open issues</a> for a full list of proposed features (and known issues).</p>
+
+<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
+  <h2>Contributing</h2>
+</a>
+<p>Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are <strong>greatly appreciated</strong>.</p>
+<p>If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag &quot;enhancement&quot;. Don&#39;t forget to give the project a star! Thanks again!</p>
+<ol>
+<li>Fork the Project</li>
+<li>Create your Feature Branch (<code>git checkout -b scratch/my-feature</code>)</li>
+<li>Commit your Changes (<code>git commit -m &#39;added new feature&#39;</code>)</li>
+<li>Push to the Branch (<code>git push origin scratch/my-feature</code>)</li>
+<li>Open a Pull Request</li>
+</ol>
+
+<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+  <h2>License</h2>
+</a>
+<p>Distributed under the MIT License. See <a href="https://github.com/nielse63/typescript-repo-template/blob/main/LICENSE.txt"><code>LICENSE.txt</code></a> for more information.</p>
+
+<a href="#contact" id="contact" style="color: inherit; text-decoration: none;">
+  <h2>Contact</h2>
+</a>
+<p>Project Link: <a href="https://github.com/nielse63/typescript-repo-template">https://github.com/nielse63/typescript-repo-template</a></p>
+</div></div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+<div class="tsd-navigation settings">
+<details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility">
+<h4 class="uppercase">Member Visibility</h4><form>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
+<div class="tsd-theme-toggle">
+<h4 class="uppercase">Theme</h4><select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current selected"><a href="modules.html">typescript-<wbr/>repo-<wbr/>template</a>
+<ul></ul></li></ul></div></details></nav>
+<nav class="tsd-navigation secondary menu-sticky">
+<ul>
+<li class="tsd-kind-function"><a href="functions/default.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-64-path"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)" id="icon-64-text"></path></svg>default</a></li></ul></nav></div></div>
+<div class="container tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
+<div class="overlay"></div><script src="assets/main.js"></script></body></html>

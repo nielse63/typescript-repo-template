@@ -55,9 +55,6 @@ npm run setup
 git clone https://github.com/{{user}}/{{name}} my-awesome-project
 cd my-awesome-project
 
-# switch to ideal node version
-nvm use
-
 # run the setup script
 npm run setup
 ```
