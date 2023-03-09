@@ -4,6 +4,14 @@ const fsp = require('fs/promises');
 const path = require('path');
 const readline = require('readline');
 const cp = require('child_process');
+const {
+  getAuthorDetails,
+  isDryRun,
+  pwd,
+  dirname,
+  templatesDir,
+  files,
+} = require('./helpers');
 
 const exec = (cmd) => {
   return new Promise((resolve, reject) => {
@@ -34,21 +42,6 @@ const ask = (message, defaultValue = '') => {
   });
 };
 
-const isDryRun = process.argv.includes('--dry-run');
-const pwd = path.resolve(__dirname, '../..');
-const dirname = path.basename(pwd);
-const templatesDir = path.join(__dirname, 'templates');
-const files = [
-  'package.json',
-  'package-lock.json',
-  'README.md',
-  '.github/settings.yml',
-  'LICENSE',
-];
-const templates = [...files].map((file) =>
-  path.join(templatesDir, `${file}.tpl`)
-);
-
 const prompt = async () => {
   const name = await ask('Repo Name', dirname);
   const defaultUser = await exec(
@@ -68,8 +61,7 @@ const prompt = async () => {
     .filter(Boolean);
   rl.close();
   const date = new Date();
-  const [ignore1 = '', authorEmail = ''] = author.match(/<(.*?)>/) || [];
-  const [ignore2 = '', authorName = ''] = author.match(/\b(.*?)\s(?=<)/) || [];
+  const { name: authorName, email: authorEmail } = getAuthorDetails(author);
   return {
     name,
     user,
@@ -116,9 +108,11 @@ const setup = async () => {
   if (isDryRun) {
     console.log('config:\n', answers);
   }
-  const promises = templates.map((file) => {
-    return findAndReplaceInFile(file, answers);
-  });
+  const promises = [...files]
+    .map((file) => path.join(templatesDir, `${file}.tpl`))
+    .map((file) => {
+      return findAndReplaceInFile(file, answers);
+    });
   await Promise.all(promises);
 };
 

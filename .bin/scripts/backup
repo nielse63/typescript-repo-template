@@ -1,30 +1,20 @@
 #!/usr/bin/env node
+const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
 const pkg = require('../../package.json');
+const { getAuthorDetails, pwd, templatesDir, files } = require('./helpers');
 
-const pwd = path.resolve(__dirname, '../..');
-const templatesDir = path.join(__dirname, 'templates');
-const files = [
-  'package.json',
-  'package-lock.json',
-  'README.md',
-  '.github/settings.yml',
-  'LICENSE',
-];
-const templates = [...files].reduce((output, file) => {
+const templatesObject = [...files].reduce((output, file) => {
   const dest = path.join(templatesDir, `${file}.tpl`);
   return {
     ...output,
     [path.basename(file)]: dest,
   };
 }, {});
-const sources = [...files].map((file) => path.join(pwd, file));
-
-// const getPackageJson = async () => {
-//   const content = await fsp.readFile(path.join(pwd, 'package.json'), 'utf-8');
-//   return JSON.parse(content);
-// };
+const sources = [...files]
+  .map((file) => path.join(pwd, file))
+  .filter((file) => fs.existsSync(file));
 
 const createTemplateFromStringFile = async (file, answers) => {
   const content = await fsp.readFile(file, 'utf-8');
@@ -34,7 +24,7 @@ const createTemplateFromStringFile = async (file, answers) => {
     newContent = newContent.replace(new RegExp(stringValue, 'g'), `{{${key}}}`);
   });
   const basename = path.basename(file);
-  await fsp.writeFile(templates[basename], newContent);
+  await fsp.writeFile(templatesObject[basename], newContent);
 };
 
 const createTemplateFromJsonFile = async (file, answers) => {
@@ -53,7 +43,7 @@ const createTemplateFromJsonFile = async (file, answers) => {
     );
   }
   const basename = path.basename(file);
-  await fsp.writeFile(templates[basename], newContent);
+  await fsp.writeFile(templatesObject[basename], newContent);
 };
 
 const copySourceToTemplate = async (answers) => {
@@ -69,10 +59,7 @@ const copySourceToTemplate = async (answers) => {
 };
 
 const backup = async () => {
-  // const pkg = await getPackageJson();
-  const [ignore1 = '', authorEmail = ''] = pkg.author.match(/<(.*?)>/) || [];
-  const [ignore2 = '', authorName = ''] =
-    pkg.author.match(/\b(.*?)\s(?=<)/) || [];
+  const { name: authorName, email: authorEmail } = getAuthorDetails(pkg.author);
   const answers = {
     name: pkg.name,
     user: 'nielse63',

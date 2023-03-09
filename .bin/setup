@@ -20,10 +20,6 @@ function trash {
     fi
 }
 
-# vars
-root_dir=$(dirname $(dirname "$0"))
-cd "$root_dir"
-
 # run setup script
 .bin/scripts/setup
 
