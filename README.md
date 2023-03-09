@@ -12,7 +12,7 @@
   </div>
 
   <a href="https://github.com/nielse63/typescript-repo-template">
-    <img src="./docs/social.jpeg" alt="nielse63/typescript-repo-template" width="640" />
+    <img src="./docs/typescript-repo-template.png" alt="nielse63/typescript-repo-template" width="640" width="320" />
   </a>
 </div>
 

@@ -12,7 +12,7 @@
   </div>
 
   <a href="https://github.com/{{user}}/{{name}}">
-    <img src="./docs/social.jpeg" alt="{{user}}/{{name}}" width="640" />
+    <img src="./docs/{{name}}.png" alt="{{user}}/{{name}}" width="640" width="320" />
   </a>
 </div>
 
