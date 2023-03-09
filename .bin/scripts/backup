@@ -1,18 +1,7 @@
 #!/usr/bin/env node
 const fsp = require('fs/promises');
 const path = require('path');
-const cp = require('child_process');
-
-const exec = (cmd) => {
-  return new Promise((resolve, reject) => {
-    cp.exec(cmd, (error, stdout, stderr) => {
-      if (error) {
-        return reject(new Error(stderr));
-      }
-      resolve(stdout);
-    });
-  });
-};
+const pkg = require('../../package.json');
 
 const pwd = path.resolve(__dirname, '../..');
 const templatesDir = path.join(__dirname, 'templates');
@@ -21,6 +10,7 @@ const files = [
   'package-lock.json',
   'README.md',
   '.github/settings.yml',
+  'LICENSE',
 ];
 const templates = [...files].reduce((output, file) => {
   const dest = path.join(templatesDir, `${file}.tpl`);
@@ -31,10 +21,10 @@ const templates = [...files].reduce((output, file) => {
 }, {});
 const sources = [...files].map((file) => path.join(pwd, file));
 
-const getPackageJson = async () => {
-  const content = await fsp.readFile(path.join(pwd, 'package.json'), 'utf-8');
-  return JSON.parse(content);
-};
+// const getPackageJson = async () => {
+//   const content = await fsp.readFile(path.join(pwd, 'package.json'), 'utf-8');
+//   return JSON.parse(content);
+// };
 
 const createTemplateFromStringFile = async (file, answers) => {
   const content = await fsp.readFile(file, 'utf-8');
@@ -43,7 +33,8 @@ const createTemplateFromStringFile = async (file, answers) => {
     const stringValue = Array.isArray(value) ? value.join(', ') : value;
     newContent = newContent.replace(new RegExp(stringValue, 'g'), `{{${key}}}`);
   });
-  await fsp.writeFile(templates[path.basename(file)], newContent);
+  const basename = path.basename(file);
+  await fsp.writeFile(templates[basename], newContent);
 };
 
 const createTemplateFromJsonFile = async (file, answers) => {
@@ -61,11 +52,13 @@ const createTemplateFromJsonFile = async (file, answers) => {
       '{{keywords}}'
     );
   }
-  await fsp.writeFile(templates[path.basename(file)], newContent);
+  const basename = path.basename(file);
+  await fsp.writeFile(templates[basename], newContent);
 };
 
 const copySourceToTemplate = async (answers) => {
   const promises = sources.map(async (file) => {
+    console.log(`writing ${path.basename(file)}`);
     if (file.endsWith('.json')) {
       return createTemplateFromJsonFile(file, answers);
     } else {
@@ -75,13 +68,11 @@ const copySourceToTemplate = async (answers) => {
   await Promise.all(promises);
 };
 
-const stageTemplates = async () => {
-  const fileString = Object.values(templates).join(' ');
-  await exec(`git add ${fileString}`);
-};
-
 const backup = async () => {
-  const pkg = await getPackageJson();
+  // const pkg = await getPackageJson();
+  const [ignore1 = '', authorEmail = ''] = pkg.author.match(/<(.*?)>/) || [];
+  const [ignore2 = '', authorName = ''] =
+    pkg.author.match(/\b(.*?)\s(?=<)/) || [];
   const answers = {
     name: pkg.name,
     user: 'nielse63',
@@ -89,9 +80,11 @@ const backup = async () => {
     description: pkg.description,
     keywords: pkg.keywords,
     version: pkg.version,
+    year: '2023',
+    authorEmail,
+    authorName,
   };
   await copySourceToTemplate(answers);
-  await stageTemplates();
 };
 
 backup().catch(console.error);
