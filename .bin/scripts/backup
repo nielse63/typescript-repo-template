@@ -1,8 +1,7 @@
 #!/usr/bin/env node
-import fs from 'fs-extra';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import cp from 'child_process';
+const fsp = require('fs/promises');
+const path = require('path');
+const cp = require('child_process');
 
 const exec = (cmd) => {
   return new Promise((resolve, reject) => {
@@ -14,9 +13,6 @@ const exec = (cmd) => {
     });
   });
 };
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const pwd = path.resolve(__dirname, '../..');
 const templatesDir = path.join(__dirname, 'templates');
@@ -36,22 +32,22 @@ const templates = [...files].reduce((output, file) => {
 const sources = [...files].map((file) => path.join(pwd, file));
 
 const getPackageJson = async () => {
-  const content = await fs.readJSON(path.join(pwd, 'package.json'));
-  return content;
+  const content = await fsp.readFile(path.join(pwd, 'package.json'), 'utf-8');
+  return JSON.parse(content);
 };
 
 const createTemplateFromStringFile = async (file, answers) => {
-  const content = await fs.readFile(file, 'utf-8');
+  const content = await fsp.readFile(file, 'utf-8');
   let newContent = content;
   Object.entries(answers).forEach(([key, value]) => {
     const stringValue = Array.isArray(value) ? value.join(', ') : value;
     newContent = newContent.replace(new RegExp(stringValue, 'g'), `{{${key}}}`);
   });
-  await fs.writeFile(templates[path.basename(file)], newContent);
+  await fsp.writeFile(templates[path.basename(file)], newContent);
 };
 
 const createTemplateFromJsonFile = async (file, answers) => {
-  const content = await fs.readFile(file, 'utf-8');
+  const content = await fsp.readFile(file, 'utf-8');
   let newContent = content;
   Object.entries(answers).forEach(([key, value]) => {
     const stringValue = Array.isArray(value) ? value.join(', ') : value;
@@ -65,7 +61,7 @@ const createTemplateFromJsonFile = async (file, answers) => {
       '{{keywords}}'
     );
   }
-  await fs.writeFile(templates[path.basename(file)], newContent);
+  await fsp.writeFile(templates[path.basename(file)], newContent);
 };
 
 const copySourceToTemplate = async (answers) => {
