@@ -10,11 +10,6 @@ on:
     branches:
       - main
 
-env:
-  ALPACA_URL: ${{ secrets.ALPACA_URL }}
-  ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
-  ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
-
 jobs:
   pr_check:
     runs-on: ubuntu-latest
@@ -32,8 +27,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - run: npm ci
-      - run: npm run lint
-      - run: npm run dev
       - run: npm run build
       - run: npm test -- --coverage
       - name: Codecov

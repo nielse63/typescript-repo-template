@@ -3,22 +3,17 @@
 > A GitHub repo template for TypeScript projects
 
 <div align="center">
-  <a href="https://github.com/nielse63/typescript-repo-template">
-    <img src="docs/social.jpeg" alt="nielse63/typescript-repo-template" width="640">
-  </a>
+  <div>
+    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/nielse63/typescript-repo-template/pr-check.yml?style=for-the-badge">
+    <img alt="Codecov" src="https://img.shields.io/codecov/c/github/nielse63/typescript-repo-template?style=for-the-badge">
+    <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/nielse63/typescript-repo-template?style=for-the-badge">
+    <img alt="npm" src="https://img.shields.io/npm/v/@nielse63/typescript-repo-template?style=for-the-badge">
+    <img alt="GitHub" src="https://img.shields.io/github/license/nielse63/typescript-repo-template?style=for-the-badge">
+  </div>
 
-  <!-- <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/nielse63/typescript-repo-template"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/nielse63/typescript-repo-template">View Demo</a>
-    ·
-    <a href="https://github.com/nielse63/typescript-repo-template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/nielse63/typescript-repo-template/issues">Request Feature</a>
-  </p> -->
+  <a href="https://github.com/nielse63/typescript-repo-template">
+    <img src="./docs/social.jpeg" alt="nielse63/typescript-repo-template" width="640" />
+  </a>
 </div>
 
 ## Features
@@ -60,24 +55,27 @@ npm run setup
 git clone https://github.com/nielse63/typescript-repo-template my-awesome-project
 cd my-awesome-project
 
-# switch to ideal node version
-nvm use
-
 # run the setup script
 npm run setup
 ```
 
-<!-- ## Usage
+## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+### NPM Scrtips
 
-_For more examples, please refer to the [Documentation](https://example.com)_ -->
-
-<!-- ROADMAP -->
+| script            | desription                        |
+| ----------------- | --------------------------------- |
+| `npm test`        | run unit tests with jest          |
+| `npm start`       | execute the module from `./dist`  |
+| `npm run dev`     | execute the module from `./src`   |
+| `npm run lint`    | format and lint files             |
+| `npm run build`   | compile source to `./dist`        |
+| `npm run docs`    | build API docs                    |
+| `npm run release` | release package to npm and github |
 
 ## Roadmap
 
-- [ ] Add Changelog
+- [x] Add Changelog
 - [ ] Add default values for setup script
 - [ ] Move `.bin/scripts` to it's own package
 - [ ] Utilize plop
@@ -100,9 +98,7 @@ If you have a suggestion that would make this better, please fork the repo and c
 
 ## License
 
-Distributed under the MIT License. See [`LICENSE.txt`](./LICENSE.txt) for more information.
-
-<!-- CONTACT -->
+Distributed under the MIT License. See [`LICENSE`](https://github.com/nielse63/typescript-repo-template/blob/main/LICENSE) for more information.
 
 ## Contact
 
