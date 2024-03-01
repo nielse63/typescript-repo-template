@@ -25,7 +25,8 @@
     "prepack": "npm run build",
     "docs": "typedoc --options config/typedoc.json",
     "postdocs": ".bin/docs-cleanup",
-    "release": "dotenv release-it"
+    "release": "dotenv release-it",
+    "setup": "node .bin/setup.js"
   },
   "repository": {
     "type": "git",

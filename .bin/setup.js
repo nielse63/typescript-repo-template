@@ -4,24 +4,19 @@ const fsp = require('fs/promises');
 const path = require('path');
 const readline = require('readline');
 const cp = require('child_process');
+const util = require('util');
 const {
   getAuthorDetails,
   isDryRun,
   pwd,
   dirname,
-  templatesDir,
   files,
-} = require('./helpers');
+} = require('./scripts/helpers');
 
-const exec = (cmd) => {
-  return new Promise((resolve, reject) => {
-    cp.exec(cmd, (error, stdout, stderr) => {
-      if (error) {
-        return reject(new Error(stderr));
-      }
-      resolve(`${stdout}`.trim());
-    });
-  });
+const execPromise = util.promisify(cp.exec);
+const exec = async (cmd, options = {}) => {
+  const { stdout } = await execPromise(cmd, { ...options });
+  return stdout.toString().trim();
 };
 
 const rl = readline.createInterface({
@@ -82,38 +77,39 @@ const findAndReplaceInFile = async (file, hash) => {
   const content = await fsp.readFile(file, 'utf-8');
   let newContent = content;
   Object.entries(hash).forEach(([key, value]) => {
-    let stringValue = value;
+    let stringValue = `${value}`;
     if (Array.isArray(value)) {
-      if (file.endsWith('.json.tpl')) {
+      if (file.endsWith('.json')) {
         stringValue = JSON.stringify(value);
       } else {
         stringValue = value.join(', ');
       }
     }
-    newContent = newContent.replace(new RegExp(`{{${key}}}`, 'g'), stringValue);
+    newContent = newContent.replace(
+      new RegExp(`{{${key}}}`, 'gm'),
+      stringValue
+    );
   });
-  const basename = file
-    .replace(templatesDir, '')
-    .replace(/^\//, '')
-    .replace(/\.tpl$/, '');
-  const dest = path.join(pwd, basename);
-  console.log(`writing ${basename}`);
+  console.log(`writing ${path.basename(file)}`);
   if (!isDryRun) {
-    await fsp.writeFile(dest, newContent);
+    await fsp.writeFile(file, newContent);
   }
 };
 
 const setup = async () => {
   const answers = await prompt();
   if (isDryRun) {
-    console.log('config:\n', answers);
-  }
-  const promises = [...files]
-    .map((file) => path.join(templatesDir, `${file}.tpl`))
-    .map((file) => {
-      return findAndReplaceInFile(file, answers);
+    console.log('config:\n', {
+      pwd,
+      ...answers,
     });
+  }
+  const promises = [...files].map((file) => {
+    return findAndReplaceInFile(file, answers);
+  });
   await Promise.all(promises);
+  await exec('npm pkg delete scripts.setup');
+  console.log('setup complete. you can now run `npm ci`');
 };
 
 setup().catch(console.error);

@@ -1,4 +1,5 @@
 const path = require('path');
+const { execSync } = require('child_process');
 
 const getAuthorDetails = (author) => {
   const emailMatches = author.match(/<(.*?)>/) || [];
@@ -11,9 +12,8 @@ const getAuthorDetails = (author) => {
 };
 
 const isDryRun = process.argv.includes('--dry-run');
-const pwd = path.resolve(__dirname, '../..');
+const pwd = execSync('git rev-parse --show-toplevel').toString().trim();
 const dirname = path.basename(pwd);
-const templatesDir = path.join(__dirname, 'templates');
 const files = [
   'package.json',
   'package-lock.json',
@@ -26,5 +26,4 @@ exports.getAuthorDetails = getAuthorDetails;
 exports.isDryRun = isDryRun;
 exports.pwd = pwd;
 exports.dirname = dirname;
-exports.templatesDir = templatesDir;
 exports.files = files;
