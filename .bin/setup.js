@@ -12,6 +12,17 @@ const {
   dirname,
   files,
 } = require('./scripts/helpers');
+const pkg = require('../package.json');
+
+const CURRENT_VALUES = {
+  name: pkg.name,
+  user: 'nielse63',
+  author: pkg.author,
+  description: pkg.description,
+  keywords: pkg.keywords,
+  authorName: 'Erik Nielsen',
+  authorEmail: 'erik@312development.com',
+};
 
 const execPromise = util.promisify(cp.exec);
 const exec = async (cmd, options = {}) => {
@@ -70,25 +81,51 @@ const prompt = async () => {
   };
 };
 
+const findAndReplaceInJSON = async (file, hash) => {
+  const content = await fsp.readFile(file, 'utf-8');
+  const json = JSON.parse(content);
+  Object.entries(hash).forEach(([key, value]) => {
+    if (json[key]) {
+      json[key] = value;
+    }
+  });
+  if (file === 'package-lock.json') {
+    json.packages[''].name = hash.name;
+  }
+  let stringContent = JSON.stringify(json, null, 2);
+  if (file === 'package.json') {
+    stringContent = stringContent
+      .replace(new RegExp(CURRENT_VALUES.user, 'g'), hash.user)
+      .replace(new RegExp(CURRENT_VALUES.name, 'g'), hash.name);
+  }
+  return stringContent;
+};
+
 const findAndReplaceInFile = async (file, hash) => {
   if (!fs.existsSync(file)) {
     return;
   }
+  if (file.endsWith('.json')) {
+    const newContent = await findAndReplaceInJSON(file, hash);
+    console.log(`writing ${path.basename(file)}`);
+    if (!isDryRun) {
+      await fsp.writeFile(file, newContent);
+    }
+    return;
+  }
+
   const content = await fsp.readFile(file, 'utf-8');
   let newContent = content;
+  console.log('file:', file);
   Object.entries(hash).forEach(([key, value]) => {
     let stringValue = `${value}`;
     if (Array.isArray(value)) {
-      if (file.endsWith('.json')) {
-        stringValue = JSON.stringify(value);
-      } else {
-        stringValue = value.join(', ');
-      }
+      stringValue = value.join(', ');
     }
-    newContent = newContent.replace(
-      new RegExp(`{{${key}}}`, 'gm'),
-      stringValue
-    );
+    const oldValue = CURRENT_VALUES[key];
+    if (oldValue) {
+      newContent = newContent.replace(new RegExp(oldValue, 'gm'), stringValue);
+    }
   });
   console.log(`writing ${path.basename(file)}`);
   if (!isDryRun) {
@@ -109,6 +146,7 @@ const setup = async () => {
   });
   await Promise.all(promises);
   await exec('npm pkg delete scripts.setup');
+  console.log('');
   console.log('setup complete. you can now run `npm ci`');
 };
 
