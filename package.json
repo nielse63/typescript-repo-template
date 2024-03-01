@@ -15,7 +15,6 @@
     "access": "public"
   },
   "scripts": {
-    "setup": ".bin/setup",
     "test": "jest",
     "prepare": "husky install",
     "start": "node dist/index.js",
@@ -44,15 +43,15 @@
   },
   "homepage": "https://github.com/nielse63/typescript-repo-template#readme",
   "engines": {
-    "node": "^16.20.2",
-    "npm": "^v8.19.3"
+    "node": ">=18"
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",
-    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-env": "^7.24.0",
     "@babel/preset-typescript": "^7.23.3",
+    "@types/babel__core": "^7.20.5",
     "@types/jest": "^29.5.12",
-    "@types/node": "^20.11.20",
+    "@types/node": "^20.11.24",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "babel-jest": "^29.7.0",

@@ -1,3 +1,1 @@
-window.searchData = JSON.parse(
-  '{"kinds":{"64":"Function"},"rows":[{"kind":64,"name":"default","url":"functions/default.html","classes":"tsd-kind-function"}],"index":{"version":"2.3.9","fields":["name","comment"],"fieldVectors":[["name/0",[0,2.877]],["comment/0",[]]],"invertedIndex":[["default",{"_index":0,"name":{"0":{}},"comment":{}}]],"pipeline":[]}}'
-);
+window.searchData = "data:application/octet-stream;base64,H4sIAAAAAAAAEz2MMQqAMBAE/7J1sNDK/MAP2IiFmBUOkovEoIL4dwmK5ewscyHFY4MdRgNRxxP2ws60SVRY1FVTtTBYhN6VG3QKhMEcQ6BmjJ/rOeeY/tDOlOm6N1imVVZ6URa67wdtjdlXdgAAAA==";

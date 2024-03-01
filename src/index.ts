@@ -1,5 +1,3 @@
-const main = () => {
-  return 'update me!';
-};
+import main from './lib';
 
-export default main;
+main().catch(console.error);

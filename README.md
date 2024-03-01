@@ -30,7 +30,7 @@
 For the best results, make sure you have the correct version of node installed:
 
 ```bash
-nvm install v16.19.0
+nvm install v18.19.1
 ```
 
 ### Installation
