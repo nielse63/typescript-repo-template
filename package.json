@@ -24,7 +24,6 @@
     "prepack": "npm run build",
     "docs": "typedoc --options config/typedoc.json",
     "postdocs": ".bin/docs-cleanup",
-    "release": "dotenv release-it",
     "setup": "node .bin/setup.js",
     "verify": ".bin/verify"
   },
@@ -69,7 +68,6 @@
     "jest-extended": "^6.0.0",
     "lint-staged": "^16.2.6",
     "prettier": "^3.2.5",
-    "release-it": "^17.1.1",
     "ts-node": "^10.9.2",
     "typedoc": "^0.28.14",
     "typescript": "<5.4.0"

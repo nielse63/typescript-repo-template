@@ -7,7 +7,6 @@
     <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/nielse63/typescript-repo-template/main.yml?style=for-the-badge">
     <img alt="Codecov" src="https://img.shields.io/codecov/c/github/nielse63/typescript-repo-template?style=for-the-badge">
     <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/nielse63/typescript-repo-template?style=for-the-badge">
-    <img alt="npm" src="https://img.shields.io/npm/v/@nielse63/typescript-repo-template?style=for-the-badge">
     <img alt="GitHub" src="https://img.shields.io/github/license/nielse63/typescript-repo-template?style=for-the-badge">
   </div>
 
@@ -63,15 +62,14 @@ npm run setup
 
 ### NPM Scrtips
 
-| script            | desription                        |
-| ----------------- | --------------------------------- |
-| `npm test`        | run unit tests with jest          |
-| `npm start`       | execute the module from `./dist`  |
-| `npm run dev`     | execute the module from `./src`   |
-| `npm run lint`    | format and lint files             |
-| `npm run build`   | compile source to `./dist`        |
-| `npm run docs`    | build API docs                    |
-| `npm run release` | release package to npm and github |
+| script          | desription                       |
+| --------------- | -------------------------------- |
+| `npm test`      | run unit tests with jest         |
+| `npm start`     | execute the module from `./dist` |
+| `npm run dev`   | execute the module from `./src`  |
+| `npm run lint`  | format and lint files            |
+| `npm run build` | compile source to `./dist`       |
+| `npm run docs`  | build API docs                   |
 
 ## Roadmap
 
