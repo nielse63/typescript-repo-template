@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -ex
+
+rm -rf dist/
+npx tsc -p config/tsconfig.cjs.json
+npx tsc -p config/tsconfig.mjs.json

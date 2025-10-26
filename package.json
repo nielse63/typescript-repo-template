@@ -16,12 +16,11 @@
   },
   "scripts": {
     "test": "jest",
-    "prepare": "husky install",
+    "prepare": "husky || true",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
     "lint": "prettier --write ./src && eslint --fix ./src",
-    "prebuild": "rm -rf dist/",
-    "build": "tsc -p config/tsconfig.cjs.json && tsc -p config/tsconfig.mjs.json",
+    "build": ".bin/build",
     "prepack": "npm run build",
     "docs": "typedoc --options config/typedoc.json",
     "postdocs": ".bin/docs-cleanup",
@@ -72,7 +71,7 @@
     "release-it": "^17.1.1",
     "ts-node": "^10.9.2",
     "typedoc": "^0.25.9",
-    "typescript": "^5.3.3"
+    "typescript": "<5.4.0"
   },
   "lint-staged": {
     "*.{ts,js,json,md,yml}": "prettier --write"
