@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -e
+
+function trash {
+    local src=$1
+    src_basename=$(basename "$src")
+    now=$(date +%s)
+
+    # guard
+    if ! [ -e "$src" ]; then
+        return
+    fi
+
+    echo "Removing $src"
+
+    dest="$HOME/.Trash/${src_basename}_${now}_${RANDOM}"
+
+    # move to trash if possible
+    mv "$src" "$dest"
+    rm -rf "$dest" &
+}
+
+# clean directories
+trash node_modules/
+trash dist/
+trash package-lock.json
+
+# reinstall dependencies
+npm install
+
+# run scripts
+npm run test
+npm run lint
+npm run build
+npm run docs

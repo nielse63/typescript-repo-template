@@ -25,7 +25,8 @@
     "docs": "typedoc --options config/typedoc.json",
     "postdocs": ".bin/docs-cleanup",
     "release": "dotenv release-it",
-    "setup": "node .bin/setup.js"
+    "setup": "node .bin/setup.js",
+    "verify": ".bin/verify"
   },
   "repository": {
     "type": "git",

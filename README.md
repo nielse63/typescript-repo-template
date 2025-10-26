@@ -4,7 +4,7 @@
 
 <div align="center">
   <div>
-    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/nielse63/typescript-repo-template/pr-check.yml?style=for-the-badge">
+    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/nielse63/typescript-repo-template/main.yml?style=for-the-badge">
     <img alt="Codecov" src="https://img.shields.io/codecov/c/github/nielse63/typescript-repo-template?style=for-the-badge">
     <img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/nielse63/typescript-repo-template?style=for-the-badge">
     <img alt="npm" src="https://img.shields.io/npm/v/@nielse63/typescript-repo-template?style=for-the-badge">
@@ -30,7 +30,7 @@
 For the best results, make sure you have the correct version of node installed:
 
 ```bash
-nvm install v18.19.1
+nvm install v22.21.0
 ```
 
 ### Installation
