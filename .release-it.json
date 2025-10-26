@@ -2,6 +2,9 @@
   "hooks": {
     "before:init": [".bin/pre-release"]
   },
+  "npm": {
+    "publish": false
+  },
   "github": {
     "release": true
   },
