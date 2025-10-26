@@ -13,6 +13,11 @@ function trash {
 
     echo "Removing $src"
 
+    if ! [ -d "$HOME/.Trash" ]; then
+        rm -rf "$src" &
+        return
+    fi
+
     dest="$HOME/.Trash/${src_basename}_${now}_${RANDOM}"
 
     # move to trash if possible
