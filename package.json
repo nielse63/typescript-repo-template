@@ -51,7 +51,7 @@
     "@babel/preset-typescript": "^8.0.1",
     "@types/babel__core": "^7.20.5",
     "@types/jest": "^30.0.0",
-    "@types/node": "^26.0.0",
+    "@types/node": "^26.0.1",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "babel-jest": "^30.4.1",
@@ -67,7 +67,7 @@
     "jest": "^30.4.2",
     "jest-extended": "^7.0.0",
     "lint-staged": "^17.0.8",
-    "prettier": "^3.8.4",
+    "prettier": "^3.9.1",
     "ts-node": "^10.9.2",
     "typedoc": "^0.28.19",
     "typescript": "<5.4.0"
